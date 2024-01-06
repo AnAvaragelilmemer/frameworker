@@ -98,4 +98,12 @@ local id = placeid or game.PlaceId
     local the = services.HttpService:JSONDecode(http_request({Url = "https://apis.roblox.com/universes/v1/places/"..id.."/universe"}).Body)
     return the.universeId
 end
+function frameworker:SystemChatMessage(text,color,font)
+if not frameworker:chatcheck() then
+services.StarterGui:SetCore("ChatMakeSystemMessage",{Text = text,Color = color, Font = font})
+else
+--thanks mr squared https://devforum.roblox.com/t/properties-of-displaysystemmessage-textchatservices/2051223/5
+local m = game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(text).MessageId
+game.CoreGui.ExperienceChat.appLayout.chatWindow.scrollingView.bottomLockedScrollView.scrollingFrame:WaitForChild(m).TextColor3 = color
+end
 return frameworker
