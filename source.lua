@@ -106,4 +106,5 @@ else
 local m = game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(text).MessageId
 game.CoreGui.ExperienceChat.appLayout.chatWindow.scrollingView.bottomLockedScrollView.scrollingFrame:WaitForChild(m).TextColor3 = color
 end
+end
 return frameworker
