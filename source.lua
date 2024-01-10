@@ -102,9 +102,12 @@ function frameworker:SystemChatMessage(text,color,font)
 if not frameworker:chatcheck() then
 services.StarterGui:SetCore("ChatMakeSystemMessage",{Text = text,Color = color, Font = font})
 else
---thanks mr squared https://devforum.roblox.com/t/properties-of-displaysystemmessage-textchatservices/2051223/5
-local m = game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(text).MessageId
-game.CoreGui.ExperienceChat.appLayout.chatWindow.scrollingView.bottomLockedScrollView.scrollingFrame:WaitForChild(m).TextColor3 = color
+if color and color:find("#") then
+local textt = text
+game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(`<font color=color'>{textt}</font>`)
+            elseif not color:find("#") and color then
+error("Invalid usage of Color, must be using HTML colors.")
+        end
 end
 end
 return frameworker
