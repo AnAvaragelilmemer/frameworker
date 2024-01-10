@@ -97,17 +97,5 @@ function frameworker:GetPlaceUID(placeid)
 local id = placeid or game.PlaceId
     local the = services.HttpService:JSONDecode(http_request({Url = "https://apis.roblox.com/universes/v1/places/"..id.."/universe"}).Body)
     return the.universeId
-end
-function frameworker:SystemChatMessage(text,color,font)
-if not frameworker:chatcheck() then
-services.StarterGui:SetCore("ChatMakeSystemMessage",{Text = text,Color = color, Font = font})
-else
-if color and color:find("#") then
-local textt = text
-game.TextChatService.TextChannels.RBXGeneral:DisplaySystemMessage(`<font color=color'>{textt}</font>`)
-            elseif not color:find("#") and color then
-error("Invalid usage of Color, must be using HTML colors.")
-        end
-end
-end
+end 
 return frameworker
