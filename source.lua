@@ -42,13 +42,20 @@ function frameworker:chat(msg)
  services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All") 
  end 
 end 
- function frameworker.new(instance,property) 
+function frameworker.new(instance,property) 
  local thing = Instance.new(instance) 
  for i,v in pairs(property) do 
     thing[i] = v 
  end 
  return thing 
- end 
+end 
+function frameworker.dnew(instance,property)
+  local thing = Drawing.new(instance)
+  for i,v in pairs(property) do
+      thing[i] = v
+  end
+  return thing
+end
 function frameworker.fpscap(number) 
      if setfpscap then 
      setfpscap(number) 
@@ -97,5 +104,25 @@ function frameworker:GetPlaceUID(placeid)
 local id = placeid or game.PlaceId
     local the = services.HttpService:JSONDecode(http_request({Url = "https://apis.roblox.com/universes/v1/places/"..id.."/universe"}).Body)
     return the.universeId
-end 
+end
+local oldparent = {}
+function frameworker:ProtectUI(ui)
+assert(typeof(ui) == "Instance",string.format("invalid usage of ProtectUI, instance expected, not %s",typeof(ui)))
+oldparent[ui] = ui.Parent
+ui.Parent = gethui()
+end
+function frameworker:UnprotectUI(ui)
+assert(typeof(ui) == "Instance",string.format("invalid usage of UnprotectUI, instance expected, not %s",typeof(ui)))
+local parent = oldparent[ui.Parent]
+if oldparent[ui] then
+ui.Parent = oldparent[ui]
+oldparent[ui] = nil
+end
+end
+function frameworker:FireServer(remote,...)
+remote:FireServer(table.unpack({...}))
+end
+function frameworker:InvokeServer(remote,...)
+remote:InvokeServer(table.unpack({...}))
+end
 return frameworker
