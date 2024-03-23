@@ -26,7 +26,7 @@ local amount = length or 10
      return table.concat(strings) 
 end
 function frameworker:getasset(id) 
-return (isfile(id) and getcustomasset(id)) or "rbxassetid://"..id
+return (isfile(id) and getcustomasset(id)) or game:GetObjects("rbxassetid://"..id)[1]
 end 
 function frameworker:chatcheck() 
 if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then 
@@ -124,5 +124,11 @@ remote:FireServer(table.unpack({...}))
 end
 function frameworker:InvokeServer(remote,...)
 remote:InvokeServer(table.unpack({...}))
+end
+function frameworker:FireSignal(signal)
+assert(typeof(signal) == "RBXScriptSignal",string.format("invalid usage of FireSignal, RBXScriptSignal expected, not %s",typeof(signal))
+for i,v in pairs(getconnections(signal)) do
+task.spawn(signal)
+end
 end
 return frameworker
