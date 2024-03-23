@@ -126,7 +126,7 @@ function frameworker:InvokeServer(remote,...)
 remote:InvokeServer(table.unpack({...}))
 end
 function frameworker:FireSignal(signal)
-assert(typeof(signal) == "RBXScriptSignal",string.format("invalid usage of FireSignal, RBXScriptSignal expected, not %s",typeof(signal))
+assert(typeof(signal) == "RBXScriptSignal",string.format("invalid usage of FireSignal, RBXScriptSignal expected, not %s",typeof(signal)))
 for i,v in pairs(getconnections(signal)) do
 task.spawn(signal)
 end
