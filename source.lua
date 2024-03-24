@@ -1,5 +1,5 @@
 getgenv().frameworker = {} 
-local frameworker_cache = {}
+getgenv().frameworker_cache = {}
 frameworker.service = setmetatable({},{__index = function(self,service)
     if frameworker_cache[service] then
         return frameworker_cache[service]
