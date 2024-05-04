@@ -125,4 +125,7 @@ end
 function frameworker:InvokeServer(remote,...)
 remote:InvokeServer(table.unpack({...}))
 end
+function frameworker:ConvertStringToCFrame(str)
+ return CFrame.new(table.unpack(str:gsub(" ",""):split(",")))
+end
 return frameworker
