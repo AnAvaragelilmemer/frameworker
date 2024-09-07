@@ -26,7 +26,7 @@ local amount = length or 10
      return table.concat(strings) 
 end
 function frameworker:getasset(id) 
-return (isfile(id) and getcustomasset(id)) or game:GetObjects("rbxassetid://"..id)[1]
+return (isfile(id) and getcustomasset(id)) or "rbxassetid://"..id
 end 
 function frameworker:chatcheck() 
 if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then 
