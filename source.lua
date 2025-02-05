@@ -36,6 +36,7 @@ if url == "" then
 		local fileName = "FrameworkerAsset_"..os.time().. ".txt"
 		local instance = nil
 		writefile(fileName, game:HttpGet(url))
+		wait()
 		instance = game:GetObjects(GetAsset(fileName))[1]
 		delfile(fileName)
 		return instance
