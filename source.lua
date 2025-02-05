@@ -42,6 +42,14 @@ if url == "" then
 		return instance
 end
 end 
+--renamed
+function frameworker:IsUsingOldChat() 
+if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then 
+ return true 
+ else 
+ return false 
+ end 
+end 
 function frameworker:chatcheck() 
 if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then 
  return true 
@@ -50,7 +58,7 @@ if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
  end 
 end 
 function frameworker:chat(msg) 
- if frameworker:chatcheck() then 
+ if frameworker:IsUsingOldChat() then 
  services.TextChatService.TextChannels.RBXGeneral:SendAsync(msg) 
  else 
  services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All") 
