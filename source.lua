@@ -26,7 +26,20 @@ local amount = length or 10
      return table.concat(strings) 
 end
 function frameworker:getasset(id) 
-return (isfile(id) and getcustomasset(id)) or "rbxassetid://"..id
+--https://github.com/AnAvaragelilmemer/saturn/blob/main/assets/executorutils/initiateexecutor.lua
+if url == "" then
+		return ""
+	elseif string.find(url, "rbxassetid://") or string.find(url, "roblox.com") or tonumber(url) then
+		local numberId = string.gsub(url, "%D", "")
+		return game:GetObjects("rbxassetid://".. numberId)[1]
+	else
+		local fileName = "FrameworkerAsset_"..os.time().. ".txt"
+		local instance = nil
+		writefile(fileName, game:HttpGet(url))
+		instance = game:GetObjects(GetAsset(fileName))[1]
+		delfile(fileName)
+		return instance
+end
 end 
 function frameworker:chatcheck() 
 if services.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then 
